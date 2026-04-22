@@ -1,0 +1,256 @@
+\chapter{La Era de Internet y la Productividad (1990s–2000s)}
+
+A partir de la década de 1990, la expansión de Internet y la World Wide Web transformó por completo el panorama del desarrollo de software. Los lenguajes de programación ya no solo debían ser eficientes y fiables, sino también portátiles, seguros, fáciles de aprender y capaces de generar contenido dinámico en entornos distribuidos. En este contexto surgieron Python, Java, JavaScript, PHP y Ruby, cada uno con un enfoque distintivo que respondía a las nuevas demandas de la industria.
+
+\section{Python: Legibilidad y versatilidad}
+
+\subsection{Orígenes y filosofía}
+
+Python fue creado por Guido van Rossum a finales de los años ochenta y lanzado por primera vez en 1991. Su nombre proviene del grupo cómico británico ``Monty Python'', no del reptil. Van Rossum buscaba un lenguaje que fuera fácil de leer, con una sintaxis clara y que permitiera una alta productividad. Inspirado en ABC, Modula-3 y C, Python adoptó el tipado dinámico, la indentación obligatoria para definir bloques y una gran biblioteca estándar.
+
+El diseño de Python se rige por el ``Zen de Python'' (PEP 20), cuyos principios incluyen: ``Bello es mejor que feo'', ``Explícito es mejor que implícito'', ``Simple es mejor que complejo'' y ``La legibilidad cuenta''. Esta filosofía ha atraído a una amplia comunidad, especialmente en ámbitos como la ciencia de datos, la inteligencia artificial, la automatización y el desarrollo web (con frameworks como Django y Flask).
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Tipado dinámico y fuerte}: las variables no tienen tipo fijo, pero las conversiones implícitas son limitadas.
+  \item \textbf{Estructuras de datos integradas}: listas, tuplas, diccionarios y conjuntos.
+  \item \textbf{Programación multiparadigma}: soporta imperativa, orientada a objetos (con herencia múltiple) y funcional (con funciones lambda, map, filter, etc.).
+  \item \textbf{Gestión automática de memoria}: mediante recolección de basura (garbage collection).
+  \item \textbf{Amplia biblioteca estándar}: incluye soporte para expresiones regulares, hilos, sockets, interfaces gráficas (Tkinter), y mucho más.
+\end{itemize}
+
+\subsection{Ejemplo de código en Python}
+
+El siguiente programa lee una lista de enteros, calcula la media y cuenta cuántos valores la superan. Nótese la claridad de la sintaxis y el uso de funciones integradas.
+
+\begin{verbatim}
+# Python: cálculo de valores mayores que la media
+def main():
+    list_len = int(input("Introduzca la longitud: "))
+    if 0 < list_len < 100:
+        int_list = []
+        for _ in range(list_len):
+            int_list.append(int(input()))
+        average = sum(int_list) // list_len
+        result = sum(1 for x in int_list if x > average)
+        print(f"Número de valores > media: {result}")
+    else:
+        print("Error: longitud no válida")
+
+if __name__ == "__main__":
+    main()
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Python se ha convertido en uno de los lenguajes más utilizados del mundo, especialmente en los dominios de ciencia de datos, aprendizaje automático (TensorFlow, PyTorch, scikit-learn), computación científica (NumPy, SciPy) y educación. Su principal desventaja es la velocidad de ejecución, al ser interpretado, aunque existen implementaciones como PyPy y el uso de bibliotecas nativas (C/Fortran) que mitigan este problema. Su adopción masiva demuestra que la productividad y la legibilidad pueden primar sobre el rendimiento bruto en muchas aplicaciones.
+
+\section{Java: Escribir una vez, ejecutar en cualquier lugar}
+
+\subsection{Nacimiento y evolución}
+
+Java fue creado por James Gosling, Mike Sheridan y Patrick Naughton en Sun Microsystems a principios de los años noventa. Inicialmente se concibió para dispositivos electrónicos de consumo (como decodificadores de TV interactiva), pero el proyecto languidecía. Con la explosión de la World Wide Web en 1995, Sun redirigió Java hacia los navegadores, lanzando los \textit{applets} que permitían ejecutar código seguro en las páginas web.
+
+El lema de Java, ``Write Once, Run Anywhere'' (WORA), se hizo realidad gracias a la máquina virtual Java (JVM), que abstrae las diferencias del hardware y sistema operativo. El lenguaje fue estandarizado y liberado como código abierto. Aunque los applets cayeron en desuso, Java se consolidó como el lenguaje dominante en servidores empresariales, aplicaciones Android y sistemas de gran escala.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Orientación a objetos pura}: todo (excepto los tipos primitivos) es un objeto, y no existen funciones globales.
+  \item \textbf{Tipado estático y fuerte}: con comprobación de tipos en tiempo de compilación.
+  \item \textbf{Gestión automática de memoria}: el recolector de basura elimina la necesidad de liberar memoria explícitamente.
+  \item \textbf{Seguridad}: ausencia de punteros aritméticos, comprobación de límites de arreglos y un modelo de seguridad en la JVM.
+  \item \textbf{Concurrencia}: soporte para hilos (threads) y sincronización mediante \texttt{synchronized}.
+  \item \textbf{Amplio ecosistema}: Java Enterprise Edition (JEE), Spring, Hibernate, Maven, etc.
+\end{itemize}
+
+\subsection{Ejemplo de código en Java}
+
+\begin{verbatim}
+// Java: programa que cuenta los valores mayores que la media
+import java.io.*;
+import java.util.*;
+
+public class MediaSuperior {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int listLen = Integer.parseInt(br.readLine());
+        if (listLen > 0 && listLen < 100) {
+            int[] intList = new int[listLen];
+            int sum = 0;
+            for (int i = 0; i < listLen; i++) {
+                intList[i] = Integer.parseInt(br.readLine());
+                sum += intList[i];
+            }
+            int average = sum / listLen;
+            int result = 0;
+            for (int num : intList) {
+                if (num > average) result++;
+            }
+            System.out.println("Número de valores > media: " + result);
+        } else {
+            System.out.println("Error: longitud no válida");
+        }
+    }
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Java revolucionó el desarrollo de software al ofrecer una plataforma homogénea y un lenguaje robusto, seguro y portable. Su popularidad en el ámbito empresarial se debe a la madurez de sus herramientas, el rendimiento (gracias a la compilación JIT) y la enorme comunidad. Las críticas incluyen cierta verbosidad sintáctica y un consumo de memoria relativamente alto. No obstante, sigue siendo uno de los lenguajes más demandados en el mercado laboral.
+
+\section{JavaScript: El lenguaje de la web}
+
+\subsection{Orígenes y evolución}
+
+JavaScript fue creado por Brendan Eich en 1995 mientras trabajaba en Netscape Communications. La historia cuenta que Eich desarrolló el prototipo en solo diez días. Inicialmente se llamó Mocha, luego LiveScript y finalmente JavaScript, aprovechando la popularidad de Java (aunque los dos lenguajes comparten solo cierta similitud sintáctica). Su propósito era dotar de interactividad a las páginas web estáticas de HTML.
+
+A pesar de su creación apresurada y ciertos defectos de diseño, JavaScript se convirtió en el estándar de facto de los navegadores. Fue estandarizado por ECMA como ECMAScript (ediciones 3, 5, 6, etc.). Con la aparición de Node.js en 2009, JavaScript saltó al servidor, permitiendo el desarrollo full-stack con un mismo lenguaje. Hoy es el lenguaje más utilizado en el mundo, gracias a la ubicuidad de los navegadores y frameworks como React, Angular, Vue y Express.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Tipado dinámico y débil}: las variables pueden cambiar de tipo y se realizan conversiones automáticas.
+  \item \textbf{Basado en prototipos}: la herencia se realiza mediante prototipos en lugar de clases (aunque las clases sintácticas se añadieron en ES6).
+  \item \textbf{Funciones de primera clase}: las funciones pueden asignarse a variables, pasarse como argumentos y retornarse.
+  \item \textbf{Modelo asíncrono}: con callbacks, promesas y async/await para manejar operaciones no bloqueantes.
+  \item \textbf{Soporte para eventos y DOM}: manipulación dinámica del documento HTML.
+\end{itemize}
+
+\subsection{Ejemplo de código en JavaScript (entorno navegador)}
+
+\begin{verbatim}
+// JavaScript: programa interactivo en el navegador
+let listLen = parseInt(prompt("Introduzca la longitud de la lista:"));
+if (listLen > 0 && listLen < 100) {
+    let intList = [];
+    let sum = 0;
+    for (let i = 0; i < listLen; i++) {
+        let valor = parseInt(prompt("Introduzca un número:"));
+        intList.push(valor);
+        sum += valor;
+    }
+    let average = Math.floor(sum / listLen);
+    let result = 0;
+    for (let num of intList) {
+        if (num > average) result++;
+    }
+    alert("Número de valores > media: " + result);
+} else {
+    alert("Error: longitud no válida");
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+JavaScript ha pasado de ser un lenguaje menospreciado por los desarrolladores de sistemas a convertirse en el ``lenguaje ensamblador de la web''. Su enorme flexibilidad permite prototipado rápido, pero también puede dar lugar a errores difíciles de depurar. La evolución del estándar ECMAScript ha ido corrigiendo muchas deficiencias (let/const, clases, módulos). Hoy es imprescindible para cualquier desarrollo web y, gracias a Node.js, también para servidores, herramientas de línea de comandos y aplicaciones de escritorio.
+
+\section{PHP: El motor del lado del servidor}
+
+\subsection{Orígenes y evolución}
+
+PHP (originalmente ``Personal Home Page'', luego ``PHP: Hypertext Preprocessor'') fue creado por Rasmus Lerdorf en 1994 para gestionar su página personal. Consistía en un conjunto de scripts CGI escritos en C. A medida que aumentó su popularidad, Lerdorf añadió capacidades para interactuar con bases de datos y formularios. En 1997 surgió PHP 3, el primero con una sintaxis similar a la actual, y en 2000 se lanzó PHP 4 con el motor Zend. PHP 5 (2004) introdujo un modelo de objetos más completo, y PHP 7 (2015) mejoró drásticamente el rendimiento.
+
+PHP se convirtió en el lenguaje dominante en el alojamiento web compartido gracias a su facilidad de despliegue, su integración nativa con HTML y su potente soporte para MySQL. Potenció el auge de sistemas de gestión de contenidos como WordPress, Drupal y Joomla, y frameworks como Laravel y Symfony.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Lenguaje interpretado del lado del servidor}: el código se ejecuta en el servidor y genera HTML que se envía al cliente.
+  \item \textbf{Sintaxis inspirada en C y Perl}: fácil de aprender para programadores de esos lenguajes.
+  \item \textbf{Tipado dinámico y débil}: similar a JavaScript en flexibilidad.
+  \item \textbf{Integración con bases de datos}: soporte nativo para MySQL, PostgreSQL, SQLite, etc.
+  \item \textbf{Sesiones y formularios}: variables superglobales como \$\_GET, \$\_POST, \$\_SESSION facilitan el manejo de datos web.
+\end{itemize}
+
+\subsection{Ejemplo de código en PHP}
+
+\begin{verbatim}
+<?php
+// PHP: ejemplo que procesa datos enviados por un formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $listLen = $_POST["listlen"];
+    if ($listLen > 0 && $listLen < 100) {
+        $sum = 0;
+        $numbers = [];
+        for ($i = 0; $i < $listLen; $i++) {
+            $val = $_POST["num_$i"];
+            $numbers[] = $val;
+            $sum += $val;
+        }
+        $average = floor($sum / $listLen);
+        $result = 0;
+        foreach ($numbers as $num) {
+            if ($num > $average) $result++;
+        }
+        echo "<p>Número de valores > media: $result</p>";
+    } else {
+        echo "<p>Error: longitud no válida</p>";
+    }
+} else {
+    // Mostrar formulario
+    echo '<form method="post">';
+    echo 'Longitud: <input type="number" name="listlen" min="1" max="99"><br>';
+    echo '<input type="submit" value="Enviar">';
+    echo '</form>';
+}
+?>
+\end{verbatim}
+
+\subsection{Evaluación}
+
+PHP ha sido criticado por inconsistencias en su API, problemas de seguridad en versiones antiguas y cierta irregularidad en el diseño del lenguaje. Sin embargo, su facilidad de uso, su amplia base de documentación y el hecho de que alimenta a más del 75\% de los sitios web (incluyendo Facebook, Wikipedia y WordPress) demuestran su enorme impacto. Con las mejoras de PHP 7 y 8, el lenguaje ha recuperado prestigio y sigue siendo una opción sólida para el desarrollo web de pequeña y mediana escala.
+
+\section{Ruby: La elegancia y la productividad}
+
+\subsection{Orígenes y filosofía}
+
+Ruby fue diseñado por Yukihiro ``Matz'' Matsumoto en Japón, con la primera versión pública en 1995. Matz buscaba un lenguaje que fuera más potente que Perl, más orientado a objetos que Python y que hiciera felices a los programadores. Ruby combina lo mejor de Perl (expresiones regulares, cadenas potentes), Smalltalk (pureza en la orientación a objetos) y Lisp (bloques, closures).
+
+Aunque inicialmente fue poco conocido fuera de Japón, el lanzamiento del framework Ruby on Rails por David Heinemeier Hansson en 2005 catapultó a Ruby a la fama. Rails popularizó la arquitectura MVC, las convenciones sobre configuración y el desarrollo ágil de aplicaciones web en tiempo récord.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Orientación a objetos pura}: todo, incluidos los números y los valores booleanos, es un objeto. Las operaciones son envíos de mensajes.
+  \item \textbf{Tipado dinámico y fuerte}: similar a Python pero con más flexibilidad.
+  \item \textbf{Metaprogramación}: capacidad de modificar clases y objetos en tiempo de ejecución, añadir métodos dinámicamente, etc.
+  \item \textbf{Bloques y closures}: la sintaxis con \texttt{do...end} o llaves permite pasar bloques de código como argumentos.
+  \item \textbf{Mixins}: mecanismo de herencia múltiple mediante módulos.
+  \item \textbf{Sintaxis elegante}: permite escribir código que se lee casi como lenguaje natural.
+\end{itemize}
+
+\subsection{Ejemplo de código en Ruby}
+
+\begin{verbatim}
+# Ruby: ejemplo clásico con manejo de arrays y métodos
+puts "Introduzca la longitud:"
+list_len = gets.to_i
+if list_len > 0 && list_len < 100
+  int_list = []
+  sum = 0
+  list_len.times do
+    valor = gets.to_i
+    int_list << valor
+    sum += valor
+  end
+  average = sum / list_len
+  result = int_list.count { |x| x > average }
+  puts "Número de valores > media: #{result}"
+else
+  puts "Error: longitud no válida"
+end
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Ruby, junto con Rails, transformó el desarrollo web al demostrar que se podía construir aplicaciones complejas con muy poco código y de forma muy mantenible. Aunque su popularidad ha disminuido frente a Node.js y Python, sigue siendo una excelente opción para startups y proyectos que priorizan la velocidad de desarrollo. Las críticas habituales son su rendimiento (más lento que Java o Go) y el consumo de memoria. Sin embargo, su comunidad valora por encima de todo la expresividad y la felicidad del programador.
+
+\section{Conclusión de la fase}
+
+La era de Internet trajo consigo una explosión de nuevos lenguajes que priorizaban la portabilidad, la simplicidad y la productividad sobre el mero rendimiento. Python democratizó la programación para científicos y educadores; Java estableció el estándar corporativo con su JVM; JavaScript se convirtió en el lenguaje universal de la web; PHP impulsó la web dinámica al alcance de todos; y Ruby ofreció una experiencia de desarrollo elegante y ágil. Todos ellos siguen vigentes y evolucionando, demostrando que el ecosistema de los lenguajes de programación es rico, diverso y adaptado a las necesidades cambiantes de la tecnología.
+
+\section*{Elementos para el archivo \texttt{references.bib}}
+
+A continuación se proporcionan entradas BibTeX que pueden incluirse en el archivo de referencias para documentar los contenidos de esta fase.

@@ -1,0 +1,232 @@
+\chapter{La Estructura y la Orientación a Objetos (1970s–1980s)}
+
+En esta fase se consolidaron dos grandes tendencias: el desarrollo de lenguajes de sistemas eficientes y la introducción de la programación orientada a objetos (POO). Los lenguajes C, C++ y Objective-C marcaron hitos fundamentales que influyeron en toda la industria del software durante décadas.
+
+\section{C: El lenguaje de sistemas por excelencia}
+
+\subsection{Antecedentes históricos}
+
+El lenguaje C fue creado por Dennis Ritchie en los Laboratorios Bell entre 1969 y 1972. Sus antecesores directos son BCPL (desarrollado por Martin Richards en 1967) y B (diseñado por Ken Thompson en 1970). BCPL y B eran lenguajes sin tipos, lo que dificultaba la escritura de programas fiables. Para superar estas limitaciones, Ritchie diseñó un lenguaje tipado basado en B, inicialmente llamado NB y posteriormente C. El nuevo lenguaje incorporaba influencias de ALGOL 68, especialmente en las sentencias \texttt{for} y \texttt{switch}, los operadores de asignación y el tratamiento de punteros.
+
+Uno de los factores que impulsó la rápida difusión de C fue su estrecha relación con el sistema operativo UNIX. Gran parte del núcleo de UNIX fue reescrito en C, demostrando que un lenguaje de alto nivel podía alcanzar una eficiencia comparable al código ensamblador.
+
+\subsection{Diseño y características}
+
+C es un lenguaje de tipo imperativo que ofrece un control preciso del hardware sin perder la abstracción propia de los lenguajes de alto nivel. Sus principales características son:
+
+\begin{itemize}
+  \item \textbf{Riqueza de operadores}: incluye operadores aritméticos, relacionales, lógicos, de bits y de asignación, muchos de los cuales pueden combinarse en expresiones compactas.
+  \item \textbf{Punteros}: permiten la manipulación directa de direcciones de memoria, esencial para la programación de sistemas.
+  \item \textbf{Estructuras de control}: dispone de \texttt{if-else}, \texttt{switch}, \texttt{while}, \texttt{do-while} y \texttt{for}.
+  \item \textbf{Tipado estático pero débil}: las variables tienen un tipo fijo, pero se permiten conversiones implícitas que pueden comprometer la seguridad.
+  \item \textbf{Separación en archivos}: soporta compilación separada, facilitando la construcción de programas modulares.
+\end{itemize}
+
+Una de las decisiones más relevantes fue la de no incluir comprobación de índices de arreglos ni recolección de basura, con el fin de maximizar la velocidad de ejecución.
+
+\subsection{Ejemplo de código en C}
+
+El siguiente programa lee un conjunto de enteros, calcula su media y cuenta cuántos valores superan dicha media. Este ejemplo ilustra la sintaxis básica de C, incluyendo declaraciones, entrada/salida con \texttt{scanf} y \texttt{printf}, y estructuras de control.
+
+\begin{verbatim}
+/* Programa en C – Cuenta valores mayores que la media */
+#include <stdio.h>
+
+int main() {
+    int intlist[99], listlen, counter, sum = 0, average, result = 0;
+    
+    scanf("%d", &listlen);
+    if ((listlen > 0) && (listlen < 100)) {
+        /* Lectura y suma */
+        for (counter = 0; counter < listlen; counter++) {
+            scanf("%d", &intlist[counter]);
+            sum += intlist[counter];
+        }
+        average = sum / listlen;
+        /* Conteo de valores mayores que la media */
+        for (counter = 0; counter < listlen; counter++)
+            if (intlist[counter] > average) result++;
+        printf("Número de valores > media: %d\n", result);
+    } else {
+        printf("Error – longitud no válida\n");
+    }
+    return 0;
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+C logró un equilibrio sin precedentes entre expresividad y eficiencia. Su éxito se debió a varios factores: la disponibilidad gratuita del compilador con UNIX, su portabilidad a diferentes arquitecturas y su idoneidad para escribir sistemas operativos, controladores y aplicaciones embebidas. Sin embargo, la debilidad en la comprobación de tipos y la facilidad para cometer errores con punteros han sido criticadas por comprometer la fiabilidad. A pesar de ello, C sigue siendo un lenguaje fundamental y la base de muchos lenguajes posteriores.
+
+\section{C++: La unión de la programación imperativa y orientada a objetos}
+
+\subsection{Orígenes y evolución}
+
+A finales de la década de 1970, Bjarne Stroustrup, también en los Laboratorios Bell, buscaba un lenguaje que combinara la eficiencia de C con las facilidades de abstracción y simulación de SIMULA 67. Su primer resultado, en 1980, fue un dialecto llamado ``C with Classes'', que añadía clases, derivación (herencia simple), control de acceso público/privado, constructores y destructores, y funciones amigas.
+
+Entre 1981 y 1984 se incorporaron funciones inline, parámetros por defecto, sobrecarga de operadores y métodos virtuales (que permiten el enlace dinámico). En 1985 se publicó la primera versión comercial con el nombre C++ (el incremento indica ``mejora de C''). La versión 2.0 (1989) añadió herencia múltiple y clases abstractas. En 1998 se estandarizó internacionalmente (ISO/IEC 14882). Las versiones posteriores incluyeron plantillas (templates), manejo de excepciones y bibliotecas como la STL.
+
+\subsection{Características principales}
+
+C++ es un lenguaje multiparadigma que soporta tanto programación procedural (al estilo de C) como orientada a objetos y genérica. Entre sus características más notables se encuentran:
+
+\begin{itemize}
+  \item \textbf{Clases y objetos}: encapsulan datos y métodos, permitiendo la creación de tipos abstractos de datos.
+  \item \textbf{Herencia}: tanto simple como múltiple, con control de visibilidad (\texttt{public}, \texttt{protected}, \texttt{private}).
+  \item \textbf{Polimorfismo}: mediante funciones virtuales y enlace dinámico.
+  \item \textbf{Sobrecarga de operadores y funciones}: permite redefinir operadores (como \texttt{+}, \texttt{-}, \texttt{*}) para tipos definidos por el usuario.
+  \item \textbf{Plantillas (templates)}: posibilitan la programación genérica (contenedores, algoritmos paramétricos).
+  \item \textbf{Manejo de excepciones}: mediante \texttt{try}, \texttt{catch} y \texttt{throw}.
+  \item \textbf{Compatibilidad con C}: prácticamente cualquier programa C es también un programa C++ válido.
+\end{itemize}
+
+\subsection{Ejemplo de código en C++}
+
+A continuación se muestra una versión orientada a objetos del problema del cálculo de la media. Se define una clase \texttt{Estadistica} que encapsula un arreglo dinámico y los métodos para agregar valores, calcular la media y contar los superiores a ella.
+
+\begin{verbatim}
+// Programa en C++ – Uso de una clase para estadísticas básicas
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Estadistica {
+private:
+    vector<int> datos;
+public:
+    void agregar(int valor) {
+        datos.push_back(valor);
+    }
+    int media() const {
+        if (datos.empty()) return 0;
+        int suma = 0;
+        for (int v : datos) suma += v;
+        return suma / datos.size();
+    }
+    int contarSuperiores(int limite) const {
+        int cont = 0;
+        for (int v : datos)
+            if (v > limite) cont++;
+        return cont;
+    }
+};
+
+int main() {
+    Estadistica est;
+    int listlen, valor;
+    
+    cin >> listlen;
+    if (listlen > 0 && listlen < 100) {
+        for (int i = 0; i < listlen; i++) {
+            cin >> valor;
+            est.agregar(valor);
+        }
+        int mediaVal = est.media();
+        int resultado = est.contarSuperiores(mediaVal);
+        cout << "Número de valores > media: " << resultado << endl;
+    } else {
+        cout << "Error – longitud no válida" << endl;
+    }
+    return 0;
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+C++ se convirtió en uno de los lenguajes más utilizados en la industria, especialmente para sistemas grandes y software de tiempo real. Su principal fortaleza es ofrecer un rendimiento similar al de C junto con potentes mecanismos de abstracción. Las críticas apuntan a su complejidad (es un lenguaje muy grande), a la herencia de las inseguridades de C (punteros, aritmética de direcciones) y a la sintaxis a veces críptica. No obstante, C++ ha evolucionado continuamente (C++11, C++14, C++17, C++20) y sigue siendo una opción dominante en videojuegos, sistemas financieros y motores de bases de datos.
+
+\section{Objective-C: El lenguaje de Apple}
+
+\subsection{Contexto y diseño}
+
+Objective-C fue creado a principios de los años ochenta por Brad Cox y Tom Love. Su objetivo era añadir capacidades orientadas a objetos a C, pero a diferencia de C++, que adoptó la sintaxis de SIMULA, Objective-C tomó prestado el modelo de envío de mensajes de Smalltalk. La sintaxis resultante es una extensión de C con nuevas construcciones introducidas mediante el prefijo \texttt{@} (por ejemplo, \texttt{@interface}, \texttt{@implementation}, \texttt{@protocol}).
+
+Aunque en sus inicios no tuvo gran difusión, su adopción por Steve Jobs en NeXT Computer fue decisiva. NeXT utilizó Objective-C para desarrollar el sistema operativo NeXTSTEP y su entorno gráfico. Cuando Apple adquirió NeXT en 1997, Objective-C se convirtió en el lenguaje principal para Mac OS X y posteriormente para iOS (iPhone, iPad). Durante más de una década fue la base del desarrollo de software en el ecosistema Apple.
+
+\subsection{Características y legado}
+
+Objective-C es un superconjunto estricto de C, por lo que cualquier programa C puede ser compilado con un compilador de Objective-C. Sus principales características orientadas a objetos son:
+
+\begin{itemize}
+  \item \textbf{Clases y objetos}: definidas en dos partes (interfaz e implementación).
+  \item \textbf{Mensajes}: la invocación a métodos se realiza mediante la sintaxis \texttt{[objeto mensaje:parámetro]}.
+  \item \textbf{Herencia simple y protocolos}: los protocolos (similares a las interfaces de Java) permiten cierto grado de herencia múltiple.
+  \item \textbf{Enlace dinámico}: la decisión de qué método ejecutar se toma en tiempo de ejecución, lo que otorga gran flexibilidad.
+  \item \textbf{Gestión manual de memoria}: originalmente con recuento de referencias (retain/release), posteriormente se añadió recolección de basura y ARC (Automatic Reference Counting).
+\end{itemize}
+
+\subsection{Ejemplo de código en Objective-C}
+
+El siguiente fragmento define una clase \texttt{Contador} que lleva la cuenta de enteros y calcula la media. Se muestra la interfaz y la implementación típicas.
+
+\begin{verbatim}
+// Objective-C – Interfaz y uso básico de una clase
+#import <Foundation/Foundation.h>
+
+@interface Contador : NSObject {
+    NSMutableArray *numeros;
+}
+- (void)agregarNumero:(int)num;
+- (int)media;
+- (int)contarSuperiores:(int)limite;
+@end
+
+@implementation Contador
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        numeros = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+- (void)agregarNumero:(int)num {
+    [numeros addObject:@(num)];
+}
+- (int)media {
+    int suma = 0;
+    for (NSNumber *n in numeros)
+        suma += [n intValue];
+    return suma / (int)[numeros count];
+}
+- (int)contarSuperiores:(int)limite {
+    int cont = 0;
+    for (NSNumber *n in numeros)
+        if ([n intValue] > limite) cont++;
+    return cont;
+}
+@end
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        Contador *c = [[Contador alloc] init];
+        int listlen, valor;
+        scanf("%d", &listlen);
+        for (int i = 0; i < listlen; i++) {
+            scanf("%d", &valor);
+            [c agregarNumero:valor];
+        }
+        int media = [c media];
+        int resultado = [c contarSuperiores:media];
+        printf("Número de valores > media: %d\n", resultado);
+    }
+    return 0;
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Objective-C fue durante años el lenguaje insignia de Apple, combinando la potencia de C con la flexibilidad de Smalltalk. Su legado es inmenso, ya que sobre él se construyeron los entornos Cocoa y Cocoa Touch. Sin embargo, su sintaxis peculiar (corchetes para los mensajes) y la verbosidad de sus nombres de métodos resultaban extrañas para programadores acostumbrados a C++ o Java. En 2014, Apple presentó Swift, un lenguaje moderno que ha ido reemplazando progresivamente a Objective-C, aunque la compatibilidad con bibliotecas escritas en Objective-C sigue siendo total.
+
+\section{Conclusión de la fase}
+
+La década de 1970 a 1980 fue testigo del nacimiento de tres lenguajes que marcaron el rumbo de la computación: C estableció el estándar para la programación de sistemas; C++ llevó la orientación a objetos al mundo del desarrollo de software de alto rendimiento; y Objective-C integró el dinamismo de Smalltalk con la eficiencia de C, convirtiéndose en la columna vertebral del ecosistema Apple. Juntos, demostraron que era posible combinar abstracción, eficiencia y control del hardware, sentando las bases para los lenguajes modernos.
+
+\section*{Referencias}
+
+\begin{thebibliography}{9}
+\bibitem{sebestaC} Sebesta, R. W. (2016). \textit{Concepts of Programming Languages} (11th ed.). Pearson. Sección 2.12.2 (C) y 2.16 (C++).
+\bibitem{sebestaObjC} Sebesta, R. W. (2016). \textit{Concepts of Programming Languages} (11th ed.). Pearson. Sección 2.16.4 (Objective-C).
+\bibitem{ritchie} Ritchie, D. M. (1993). The Development of the C Language. \textit{ACM SIGPLAN Notices}, 28(3), 201–208.
+\bibitem{stroustrup} Stroustrup, B. (1996). \textit{The Design and Evolution of C++}. Addison-Wesley.
+\bibitem{cox} Cox, B. J. (1986). \textit{Object-Oriented Programming: An Evolutionary Approach}. Addison-Wesley.
+\end{thebibliography}

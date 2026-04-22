@@ -1,0 +1,306 @@
+\chapter{El Presente: Seguridad, Concurrencia y Sistemas Modernos}
+
+En la actualidad, los lenguajes de programación deben responder a dos grandes desafíos: por un lado, la necesidad de escribir software seguro y fiable, evitando errores de memoria y condiciones de carrera; por otro lado, aprovechar la potencia de los procesadores multinúcleo y los entornos distribuidos. Swift, Kotlin, Rust, Go y TypeScript representan lo más avanzado de esta nueva generación, combinando expresividad, seguridad y rendimiento.
+
+\section{Swift: La evolución del desarrollo en Apple}
+
+\subsection{Orígenes y filosofía}
+
+Swift fue presentado por Apple en la WWDC de 2014, diseñado por Chris Lattner (creador de LLVM) junto con un equipo de Apple. Su objetivo era reemplazar a Objective-C, que había sido el lenguaje principal de macOS e iOS durante décadas. Swift hereda lo mejor de C y Objective-C, pero añade características modernas: inferencia de tipos, gestión de memoria automática mediante ARC (Automatic Reference Counting), genéricos, clausuras y una sintaxis mucho más limpia y segura.
+
+Swift es de código abierto desde 2015 y puede ejecutarse en Linux y Windows, aunque su ecosistema principal sigue siendo el de Apple. Ha sido adoptado masivamente por los desarrolladores de iOS, watchOS, tvOS y macOS, y es el lenguaje recomendado para nuevas aplicaciones.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Seguridad de tipos}: el sistema de tipos es fuerte y estricto, con inferencia de tipos que reduce la verbosidad.
+  \item \textbf{Opcionales (Optionals)}: una construcción elegante para manejar la ausencia de valor sin caer en punteros nulos.
+  \item \textbf{Gestión de memoria ARC}: el compilador inserta automáticamente las operaciones de retención y liberación.
+  \item \textbf{Protocolos y extensiones}: similar a las interfaces de Java, pero con la posibilidad de añadir implementaciones por defecto y extender tipos existentes.
+  \item \textbf{Concurrencia moderna}: desde Swift 5.5, incorpora \texttt{async/await} y actores para manejar la concurrencia de forma segura.
+  \item \textbf{Playgrounds}: entorno interactivo que permite probar código al instante.
+\end{itemize}
+
+\subsection{Ejemplo de código en Swift}
+
+El siguiente programa lee una lista de enteros, calcula la media y cuenta los valores superiores a ella. Se muestra el uso de opcionales y la sintaxis concisa de Swift.
+
+\begin{verbatim}
+// Swift: programa simple con manejo de opcionales
+import Foundation
+
+print("Introduzca la longitud:", terminator: " ")
+guard let input = readLine(), let listLen = Int(input), listLen > 0, listLen < 100 else {
+    print("Error: longitud no válida")
+    exit(1)
+}
+
+var intList = [Int]()
+var sum = 0
+
+for _ in 1...listLen {
+    guard let valInput = readLine(), let value = Int(valInput) else {
+        print("Error: entrada no numérica")
+        exit(1)
+    }
+    intList.append(value)
+    sum += value
+}
+
+let average = sum / listLen
+let result = intList.filter { $0 > average }.count
+print("Número de valores > media: \(result)")
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Swift ha sido aclamado por su sintaxis limpia, su seguridad y su rendimiento (cercano al de C++ en muchas tareas). La eliminación de los punteros nulos mediante opcionales ha evitado una clase entera de errores. Aunque su evolución ha sido rápida (Swift 2, 3, 4, 5...), lo que a veces obliga a migrar código, el lenguaje ha madurado y es hoy una opción excelente para el desarrollo de aplicaciones móviles y de escritorio en el ecosistema Apple, así como para servicios backend (Vapor, Kitura).
+
+\section{Kotlin: El lenguaje moderno para Android y más allá}
+
+\subsection{Orígenes y filosofía}
+
+Kotlin fue desarrollado por JetBrains (la empresa creadora de IntelliJ IDEA) y lanzado por primera vez en 2011. Su nombre proviene de la isla de Kotlin, cerca de San Petersburgo. Kotlin está diseñado para ser completamente interoperable con Java, pero con una sintaxis más concisa, segura y expresiva. En 2017, Google anunció que Kotlin se convertía en el primer lenguaje oficialmente soportado para el desarrollo de Android (junto con Java). Desde 2019 es el lenguaje preferido por Google para Android.
+
+Kotlin se ejecuta en la JVM, pero también puede compilarse a JavaScript (Kotlin/JS) o a código nativo (Kotlin/Native), lo que amplía su alcance a iOS, Linux, Windows y macOS.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Interoperabilidad total con Java}: se pueden llamar bibliotecas Java desde Kotlin y viceversa.
+  \item \textbf{Seguridad frente a nulos}: mediante el sistema de tipos con nullable (\texttt{String?}) y operadores seguros (\texttt{?.}, \texttt{?:}, \texttt{!!}).
+  \item \textbf{Clases de datos}: una línea de código genera automáticamente \texttt{equals()}, \texttt{hashCode()}, \texttt{toString()}, \texttt{copy()}.
+  \item \textbf{Funciones de extensión}: permiten añadir nuevos métodos a clases existentes sin herencia.
+  \item \textbf{Corutinas}: manejo de concurrencia asíncrona de forma ligera, similar a las \texttt{async/await} pero con canales y flujos.
+  \item \textbf{Inferencia de tipos y parámetros por defecto}.
+\end{itemize}
+
+\subsection{Ejemplo de código en Kotlin}
+
+\begin{verbatim}
+// Kotlin: programa de ejemplo con manejo de nulos y colecciones
+fun main() {
+    print("Introduzca la longitud: ")
+    val listLen = readLine()?.toIntOrNull()
+    if (listLen != null && listLen in 1..99) {
+        val intList = mutableListOf<Int>()
+        var sum = 0
+        repeat(listLen) {
+            print("Número ${it + 1}: ")
+            val value = readLine()?.toIntOrNull()
+            if (value == null) {
+                println("Error: entrada no numérica")
+                return
+            }
+            intList.add(value)
+            sum += value
+        }
+        val average = sum / listLen
+        val result = intList.count { it > average }
+        println("Número de valores > media: $result")
+    } else {
+        println("Error: longitud no válida")
+    }
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Kotlin ha mejorado notablemente la productividad en el desarrollo Android, reduciendo la verbosidad de Java y eliminando las temidas excepciones \texttt{NullPointerException}. Su adopción es masiva: más del 80\% de las aplicaciones Android modernas usan Kotlin. Además, gracias a Kotlin Multiplatform, se está expandiendo al desarrollo de aplicaciones de escritorio y web. La principal crítica es que añade cierta complejidad inicial para quienes vienen de Java, pero la curva de aprendizaje es suave.
+
+\section{Rust: Seguridad de memoria sin recolector de basura}
+
+\subsection{Orígenes y filosofía}
+
+Rust fue desarrollado por Graydon Hooper mientras trabajaba en Mozilla Research, con la primera versión estable (1.0) lanzada en 2015. Su objetivo es ofrecer el rendimiento de C y C++, pero garantizando la seguridad de la memoria sin necesidad de un recolector de basura. Para ello, Rust introduce un innovador sistema de ``propiedad'' (ownership) y ``préstamo'' (borrowing) que se comprueba en tiempo de compilación.
+
+Rust ha sido votado como el ``lenguaje más querido'' en las encuestas de Stack Overflow durante varios años consecutivos. Se utiliza en sistemas embebidos, motores de navegadores (partes de Firefox están escritas en Rust), herramientas de línea de comandos (como \texttt{ripgrep}, \texttt{fd}) y en la infraestructura de grandes empresas como Amazon, Microsoft y Google.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Sistema de propiedad}: cada valor tiene un único ``dueño''; cuando el dueño sale del ámbito, el valor se libera automáticamente.
+  \item \textbf{Préstamos (borrowing)}: se pueden crear referencias temporales (inmutables o mutables exclusivas) sin transferir la propiedad.
+  \item \textbf{Verificación en tiempo de compilación}: el compilador garantiza que no haya referencias colgantes, dobles liberaciones o condiciones de carrera en hilos.
+  \item \textbf{Pattern matching y enumeraciones}: muy potentes para manejar casos de error (Option, Result).
+  \item \textbf{Macros}: permiten generación de código en tiempo de compilación.
+  \item \textbf{Concurrencia sin carreras}: el sistema de tipos impide el acceso simultáneo no sincronizado a datos mutables.
+\end{itemize}
+
+\subsection{Ejemplo de código en Rust}
+
+\begin{verbatim}
+// Rust: programa que cuenta valores mayores que la media
+use std::io;
+
+fn main() {
+    println!("Introduzca la longitud:");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("Error de lectura");
+    let list_len: usize = input.trim().parse().expect("Entrada no numérica");
+
+    if list_len > 0 && list_len < 100 {
+        let mut int_list = Vec::with_capacity(list_len);
+        let mut sum = 0;
+
+        for i in 0..list_len {
+            println!("Número {}: ", i + 1);
+            let mut valor_str = String::new();
+            io::stdin().read_line(&mut valor_str).expect("Error");
+            let valor: i32 = valor_str.trim().parse().expect("No es un entero");
+            int_list.push(valor);
+            sum += valor;
+        }
+
+        let average = sum / (list_len as i32);
+        let result = int_list.iter().filter(|&&x| x > average).count();
+        println!("Número de valores > media: {}", result);
+    } else {
+        println!("Error: longitud no válida");
+    }
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Rust ofrece una combinación única de rendimiento, seguridad y concurrencia. Su curva de aprendizaje es pronunciada debido al sistema de propiedad, pero una vez asimilado, el programador puede escribir código de sistemas extremadamente fiable. El lenguaje es ideal para sistemas operativos, motores de bases de datos, criptografía y cualquier dominio donde C++ ha sido tradicionalmente dominante. Aunque su ecosistema de bibliotecas (crates) está creciendo rápidamente, todavía no alcanza la madurez de C++ en algunos ámbitos.
+
+\section{Go: Simplicidad y concurrencia al estilo Google}
+
+\subsection{Orígenes y filosofía}
+
+Go (o Golang) fue diseñado en Google por Robert Griesemer, Rob Pike y Ken Thompson (este último codesarrollador de Unix y del lenguaje B). Se presentó al público en 2009 y alcanzó la versión 1.0 en 2012. La motivación fue la insatisfacción con la lentitud de compilación y la complejidad de C++ en grandes proyectos de Google. Los diseñadores buscaban un lenguaje sencillo, con tipado estático, recolección de basura eficiente, soporte nativo para concurrencia y tiempos de compilación muy rápidos.
+
+Go se ha convertido en el lenguaje predilecto para servicios de red, microservicios, contenedores (Docker está escrito en Go), orquestación (Kubernetes) y herramientas de línea de comandos.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Sintaxis minimalista}: apenas 25 palabras clave, sin herencia de clases (usa composición mediante estructuras e interfaces).
+  \item \textbf{Concurrencia mediante goroutines}: hilos extremadamente ligeros (pilas que crecen dinámicamente) que se multiplexan sobre hilos del sistema.
+  \item \textbf{Canales (channels)}: primitivas de comunicación segura entre goroutines, siguiendo el lema ``No comuniques por memoria compartida; comparte memoria comunicándote''.
+  \item \textbf{Recolección de basura concurrente}: con pausas muy cortas.
+  \item \textbf{Compilación rápida}: en cuestión de segundos para proyectos grandes.
+  \item \textbf{Herramientas integradas}: formateador automático (\texttt{gofmt}), documentación (\texttt{godoc}), pruebas (\texttt{go test}) y gestión de módulos.
+\end{itemize}
+
+\subsection{Ejemplo de código en Go}
+
+\begin{verbatim}
+// Go: programa de ejemplo con manejo de errores y slices
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    var listLen int
+    fmt.Print("Introduzca la longitud: ")
+    fmt.Scanln(&listLen)
+
+    if listLen > 0 && listLen < 100 {
+        intList := make([]int, listLen)
+        sum := 0
+        for i := 0; i < listLen; i++ {
+            var input string
+            fmt.Printf("Número %d: ", i+1)
+            fmt.Scanln(&input)
+            valor, err := strconv.Atoi(input)
+            if err != nil {
+                fmt.Println("Error: entrada no numérica")
+                return
+            }
+            intList[i] = valor
+            sum += valor
+        }
+        average := sum / listLen
+        result := 0
+        for _, v := range intList {
+            if v > average {
+                result++
+            }
+        }
+        fmt.Printf("Número de valores > media: %d\n", result)
+    } else {
+        fmt.Println("Error: longitud no válida")
+    }
+}
+\end{verbatim}
+
+\subsection{Evaluación}
+
+Go ha sido muy bien recibido por su simplicidad y su eficaz modelo de concurrencia. La ausencia de herencia y de genéricos (hasta Go 1.18) fue criticada, pero la versión 1.18 introdujo parámetros de tipo. Go no es adecuado para aplicaciones con interfaces gráficas complejas o donde se requiera un control fino de la memoria (por el GC), pero brilla en servicios backend, API REST, proxies y sistemas distribuidos. Grandes empresas como Uber, Twitch, Dropbox y, por supuesto, Google, confían en Go para sus infraestructuras críticas.
+
+\section{TypeScript: JavaScript con tipos estáticos}
+
+\subsection{Orígenes y filosofía}
+
+TypeScript fue desarrollado por Microsoft y lanzado por primera vez en 2012. Su diseñador principal es Anders Hejlsberg (creador de Turbo Pascal, Delphi y C\#). TypeScript es un superconjunto tipado de JavaScript que se compila a JavaScript estándar. Añade tipos estáticos opcionales, clases, interfaces, genéricos y otras características modernas que facilitan el desarrollo de aplicaciones a gran escala.
+
+TypeScript ha sido adoptado masivamente por la comunidad de desarrollo web, especialmente en grandes proyectos con Angular (que está escrito en TypeScript), React, Vue y Node.js. Hoy es el lenguaje dominante en el frontend empresarial.
+
+\subsection{Características principales}
+
+\begin{itemize}
+  \item \textbf{Tipado estático opcional}: se pueden añadir anotaciones de tipo, pero el código JavaScript puro sigue siendo válido.
+  \item \textbf{Inferencia de tipos}: el compilador deduce muchos tipos automáticamente.
+  \item \textbf{Interfaces y clases}: permiten definir contratos y herencia de forma más estructurada.
+  \item \textbf{Genéricos}: para escribir componentes reutilizables que trabajan con varios tipos.
+  \item \textbf{Decoradores}: una característica experimental que permite metaprogramación (usada en Angular).
+  \item \textbf{Compatibilidad total con JavaScript}: cualquier biblioteca JS puede ser usada con definiciones de tipos (DefinitelyTyped).
+\end{itemize}
+
+\subsection{Ejemplo de código en TypeScript}
+
+\begin{verbatim}
+// TypeScript: ejemplo con tipado estático e interfaces
+interface Estadisticas {
+    numeros: number[];
+    media: number;
+    superiores: number;
+}
+
+function procesarLista(listLen: number): Estadisticas | null {
+    if (listLen <= 0 || listLen >= 100) {
+        return null;
+    }
+    const numeros: number[] = [];
+    let sum = 0;
+    for (let i = 0; i < listLen; i++) {
+        const input = prompt(`Número ${i+1}:`);
+        const valor = Number(input);
+        if (isNaN(valor)) {
+            alert("Error: entrada no numérica");
+            return null;
+        }
+        numeros.push(valor);
+        sum += valor;
+    }
+    const media = Math.floor(sum / listLen);
+    const superiores = numeros.filter(n => n > media).length;
+    return { numeros, media, superiores };
+}
+
+function main() {
+    const inputLen = prompt("Introduzca la longitud:");
+    const listLen = Number(inputLen);
+    const resultado = procesarLista(listLen);
+    if (resultado) {
+        alert(`Número de valores > media: ${resultado.superiores}`);
+    } else {
+        alert("Error: longitud no válida o entrada incorrecta");
+    }
+}
+
+main();
+\end{verbatim}
+
+\subsection{Evaluación}
+
+TypeScript ha solucionado uno de los mayores problemas de JavaScript: la falta de tipado estático en grandes proyectos. Permite detectar errores en tiempo de compilación, mejora la documentación y facilita el autocompletado en editores. Su adopción es creciente, y hoy es difícil imaginar un proyecto web serio que no lo utilice. El único ``coste'' es el paso de compilación (transpilación), que se integra fácilmente en los flujos de trabajo modernos.
+
+\section{Conclusión de la fase}
+
+Los lenguajes de la era actual reflejan la madurez de la ingeniería de software. Swift y Kotlin han modernizado el desarrollo móvil con seguridad y expresividad. Rust ofrece un paradigma innovador que garantiza la seguridad de memoria sin renunciar al rendimiento. Go apuesta por la simplicidad y la concurrencia eficiente para sistemas en la nube. TypeScript extiende JavaScript con tipado estático, permitiendo construir aplicaciones web de gran escala. Todos ellos comparten un objetivo común: ayudar a los desarrolladores a escribir código más correcto, seguro y mantenible en un mundo de sistemas distribuidos y multinúcleo.
